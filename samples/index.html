@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Test Compatibility with other AJAX-Transforms by using jquery.ajax-xslt.js -->
+    <script src="http://rawgit.com/benignware-labs/jquery.ajax-xslt/master/dist/jquery.ajax-xslt.min.js"></script>
+    
+    <script src="dist/jquery.ajax-store.js"></script>
+    
+    <script>
+    
+      // Ajax setup
+      $.ajaxSetup({
+        store: {
+          type: 'localstorage',
+          validate: true,
+          expires: 10 * 1000
+        }
+      });
+      
+     $(function() {
+       
+       // JSON
+       console.log("Process JSON Request");
+       $.ajax('test.json', {
+         dataType: 'json'
+       }).done(function(result) {
+         console.log("JSON Done: ", result);
+       }).fail(function(e) {
+       });
+      
+       // Test Compatibility with other AJAX-Transforms by using jquery.ajax-xslt.js
+       // XSLT
+       console.log("Process XSLT Request");
+       $.ajax('test.xml', {
+         dataType: 'xslt'
+       }).done(function(result) {
+         console.log("XSLT Done", result, $(result).find('body').html());
+         $(document.body).append($(result).find('body').html());
+       });
+       
+     });
+     
+      
+    </script>
+    
+  </head>
+  <body>
+    <div>
+      
+      
+      
+    </div>
+  </body>
+</html>
